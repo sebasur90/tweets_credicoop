@@ -20,7 +20,7 @@ class Twittter_Api:
 
 
     def busca_tweets(self):
-        response=self.client.search_recent_tweets(max_results=10,query=self.query , tweet_fields=['created_at'],expansions=['author_id'] ,user_fields=['description','public_metrics','verified'])
+        response=self.client.search_recent_tweets(max_results=100,query=self.query , tweet_fields=['created_at'],expansions=['author_id'] ,user_fields=['description','public_metrics','verified'])
         users={u['id']: u for u in response.includes['users']}
         datos=pd.DataFrame(columns=['author_id','name','username','created_at','text','description','verified','followers_count','following_count','tweet_count','listed_count'])
         contador=1
@@ -42,6 +42,7 @@ class Twittter_Api:
                 columns=['author_id','name','username','created_at','text','description','verified','followers_count','following_count','tweet_count','listed_count'])  
                 print(f"Recopilando tweet {contador} --> {tweet.text}") 
                 datos=pd.concat([datos, df_tweet],ignore_index=True) 
+             
         return datos
 
     def agrega_sentimientos(self,tweets):
@@ -81,14 +82,36 @@ class Twittter_Api:
         return datos_pysentimiento
         
     def apila_tweets_con_sentimientos(self,tweets,datos_pysentimiento):
-        dataframe_final = pd.concat([tweets,datos_pysentimiento],axis=1)
-        dataframe_final.to_csv(f"tweets_historicos/tweets.csv",index=False)
+        dataframe_final = pd.concat([tweets,datos_pysentimiento],axis=1)  
+        try :    
+            tweets_historicos=pd.read_csv("tweets_historicos/tweets.csv")    
+            datos=pd.concat([tweets_historicos, dataframe_final],ignore_index=True)         
+            datos = datos.drop_duplicates(subset=['text']) 
+            datos.to_csv(f"tweets_historicos/tweets.csv",index=False)
 
+        except:
+            dataframe_final.to_csv(f"tweets_historicos/tweets.csv",index=False)    
+        
     
+    def trabaja_fechas(self,datos):
+        datos['created_at']=pd.to_datetime(datos.created_at, utc=True)
+        datos['dia']=datos['created_at'].map(lambda x : x.day)
+        datos['mes']=datos['created_at'].map(lambda x : x.month)
+        datos['ano']=datos['created_at'].map(lambda x : x.year)
+        datos['hora']=datos['created_at'].map(lambda x : x.hour)
+        datos['weekofyear']=datos['created_at'].map(lambda x : x.weekofyear)
+        datos['weekday']=datos['created_at'].map(lambda x : x.weekday())
+        datos['day_of_year']=datos['created_at'].map(lambda x : x.day_of_year)
+        return datos
+        
+
+
     def run(self):
         tweets=self.busca_tweets()
-        datos_pysentimiento=self.agrega_sentimientos(tweets)
+        tweets_fecha=self.trabaja_fechas(tweets)
+        datos_pysentimiento=self.agrega_sentimientos(tweets_fecha)
         self.apila_tweets_con_sentimientos(tweets,datos_pysentimiento)
+        
 
 
 if __name__ == '__main__':
