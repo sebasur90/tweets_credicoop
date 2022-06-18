@@ -20,7 +20,7 @@ jobs:
       run: |      
         git config --local user.name "sebasur90"
         git config --global --add safe.directory /github/workspace
-        git add tweets/tweets_historicos/tweets.csv
+        git add tweets_historicos/tweets.csv
         git commit -m "actualizando twitts"
     - name: Push changes
       uses: ad-m/github-push-action@master
