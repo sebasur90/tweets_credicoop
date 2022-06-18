@@ -5,14 +5,16 @@ from tokens import tokens
 import pandas as pd
 from pysentimiento.preprocessing import preprocess_tweet
 from pysentimiento import create_analyzer
+import sys
+
 
 class Twittter_Api:
     def __init__(self) -> None:
-        self.api_key=tokens['API Key']
-        self.api_key_secret=tokens['API Key Secret']
-        self.bearer_token=tokens['Bearer Token']
-        self.access_token=tokens['Access Token']
-        self.access_token_secret=tokens['Access Token Secret']
+        #self.api_key=tokens['API Key']
+        #self.api_key_secret=tokens['API Key Secret']
+        self.bearer_token=sys.argv[1]
+        #self.access_token=tokens['Access Token']
+        #self.access_token_secret=tokens['Access Token Secret']
         self.client=tweepy.Client(bearer_token=self.bearer_token)
         self.query= """credicoop -is:retweet OR bancocredicoop -is:retweet OR tarjetacabal -is:retweet OR tarjeta cabal -is:retweet OR banco credicoop -is:retweet OR 
         @credicoop -is:retweet OR @bancocredicoop -is:retweet OR @tarjetacabal -is:retweet OR @tarjeta cabal -is:retweet OR @banco credicoop -is:retweet OR
