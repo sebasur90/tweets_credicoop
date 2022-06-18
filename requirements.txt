@@ -44,6 +44,7 @@ torch==1.11.0
 tqdm==4.64.0
 transformers==4.19.2
 typing_extensions==4.2.0
+tweepy==4.10.0
 urllib3==1.26.9
 xxhash==3.0.0
 yarl==1.7.2
