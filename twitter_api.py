@@ -1,7 +1,7 @@
 from os import access
 import tweepy
-import configparser
-from tokens import tokens
+#import configparser
+#from tokens import tokens
 import pandas as pd
 from pysentimiento.preprocessing import preprocess_tweet
 from pysentimiento import create_analyzer
