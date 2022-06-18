@@ -1,3 +1,5 @@
 tokens.py
 pruebas.ipynb
 __pycache__/
+app.py
+env/
