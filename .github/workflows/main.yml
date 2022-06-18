@@ -1,7 +1,7 @@
-name: Master
+name: Main
 on:
   push:
-    branches: [master]  
+    branches: [main]  
   schedule:
     - cron: '0 */1 * * *'
 jobs:
@@ -23,7 +23,7 @@ jobs:
         git add tweets/tweets_historicos/tweets.csv
         git commit -m "actualizando twitts"
     - name: Push changes
-      uses: ad-m/github-push-action@master
+      uses: ad-m/github-push-action@main
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
