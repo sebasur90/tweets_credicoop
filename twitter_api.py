@@ -19,12 +19,12 @@ class Twittter_Api:
         self.query= """credicoop -is:retweet OR bancocredicoop -is:retweet OR tarjetacabal -is:retweet OR tarjeta cabal -is:retweet OR banco credicoop -is:retweet OR 
         @credicoop -is:retweet OR @bancocredicoop -is:retweet OR @tarjetacabal -is:retweet OR @tarjeta cabal -is:retweet OR @banco credicoop -is:retweet OR
         #credicoop -is:retweet OR #bancocredicoop -is:retweet OR #tarjetacabal -is:retweet OR #tarjeta cabal -is:retweet OR #banco credicoop -is:retweet"""
-
+        
 
     def busca_tweets(self):
-        response=self.client.search_recent_tweets(max_results=100,query=self.query , tweet_fields=['created_at'],expansions=['author_id'] ,user_fields=['description','public_metrics','verified'])
+        response=self.client.search_recent_tweets(max_results=100,query=self.query2 , tweet_fields=['created_at'],expansions=['author_id'] ,user_fields=['description','public_metrics','verified','location'])
         users={u['id']: u for u in response.includes['users']}
-        datos=pd.DataFrame(columns=['author_id','name','username','created_at','text','description','verified','followers_count','following_count','tweet_count','listed_count'])
+        datos=pd.DataFrame(columns=['author_id','name','username','created_at','text','description','verified','followers_count','following_count','tweet_count','listed_count','location'])
         contador=1
         for tweet in response.data:
             if users[tweet.author_id]:
@@ -40,8 +40,9 @@ class Twittter_Api:
                                         user.public_metrics['following_count'],
                                         user.public_metrics['tweet_count'],
                                         user.public_metrics['listed_count'],
-                                        user.verified]],
-                columns=['author_id','name','username','created_at','text','description','verified','followers_count','following_count','tweet_count','listed_count'])  
+                                        user.verified,
+                                        user.location]],
+                columns=['author_id','name','username','created_at','text','description','verified','followers_count','following_count','tweet_count','listed_count','location'])  
                 print(f"Recopilando tweet {contador} --> {tweet.text}") 
                 datos=pd.concat([datos, df_tweet],ignore_index=True) 
              
