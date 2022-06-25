@@ -22,7 +22,7 @@ class Twittter_Api:
         
 
     def busca_tweets(self):
-        response=self.client.search_recent_tweets(max_results=100,query=self.query2 , tweet_fields=['created_at'],expansions=['author_id'] ,user_fields=['description','public_metrics','verified','location'])
+        response=self.client.search_recent_tweets(max_results=100,query=self.query , tweet_fields=['created_at'],expansions=['author_id'] ,user_fields=['description','public_metrics','verified','location'])
         users={u['id']: u for u in response.includes['users']}
         datos=pd.DataFrame(columns=['author_id','name','username','created_at','text','description','verified','followers_count','following_count','tweet_count','listed_count','location'])
         contador=1
