@@ -1,6 +1,5 @@
 tokens.py
 pruebas.ipynb
 __pycache__/
-app.py
 env/
 tweets_historicos/tweets.csv
