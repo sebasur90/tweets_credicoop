@@ -18,7 +18,8 @@ class Twittter_Api:
         self.client=tweepy.Client(bearer_token=self.bearer_token)
         self.query= """credicoop -is:retweet OR bancocredicoop -is:retweet OR tarjetacabal -is:retweet OR tarjeta cabal -is:retweet OR banco credicoop -is:retweet OR 
         @credicoop -is:retweet OR @bancocredicoop -is:retweet OR @tarjetacabal -is:retweet OR @tarjeta cabal -is:retweet OR @banco credicoop -is:retweet OR
-        #credicoop -is:retweet OR #bancocredicoop -is:retweet OR #tarjetacabal -is:retweet OR #tarjeta cabal -is:retweet OR #banco credicoop -is:retweet"""
+        #credicoop -is:retweet OR #bancocredicoop -is:retweet OR #tarjetacabal -is:retweet OR #tarjeta cabal -is:retweet OR #banco credicoop -is:retweet OR 
+        # @CarlosHeller -is:retweet OR #CarlosHeller -is:retweet OR CarlosHeller -is:retweet OR Carlos Heller -is:retweet  OR #Carlos Heller -is:retweet"""
         
 
     def busca_tweets(self):
