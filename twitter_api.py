@@ -19,7 +19,7 @@ class Twittter_Api:
         self.query = """credicoop -is:retweet OR bancocredicoop -is:retweet OR tarjetacabal -is:retweet OR tarjeta cabal -is:retweet OR banco credicoop -is:retweet OR 
         @credicoop -is:retweet OR @bancocredicoop -is:retweet OR @tarjetacabal -is:retweet OR @tarjeta cabal -is:retweet OR @banco credicoop -is:retweet OR
         #credicoop -is:retweet OR #bancocredicoop -is:retweet OR #tarjetacabal -is:retweet OR #tarjeta cabal -is:retweet OR #banco credicoop -is:retweet OR 
-        @CarlosHeller -is:retweet OR #CarlosHeller -is:retweet OR Carlos Heller -is:retweet """
+        @CarlosHeller -is:retweet  OR Carlos Heller -is:retweet """
 
     def busca_tweets(self):
         response = self.client.search_recent_tweets(max_results=100, query=self.query, tweet_fields=['created_at'], expansions=[
