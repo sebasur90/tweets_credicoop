@@ -3,3 +3,4 @@ pruebas.ipynb
 __pycache__/
 env/
 tweets_historicos/tweets.csv
+.github/
